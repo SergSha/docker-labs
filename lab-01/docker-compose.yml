@@ -1,0 +1,43 @@
+version: '3.5'
+networks:
+  docker-network:
+services:
+  docker-nginx:
+    image: nginx
+    ports:
+      - '8090:80'
+    volumes:
+      - ./web/html/:/var/www/html/
+      - ./nginx/:/etc/nginx/conf.d/
+    networks:
+      - docker-network
+
+  docker-mysql:
+    image: mysql
+    volumes:
+      - ./sql/:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user1234
+    networks:
+      - docker-network
+
+  docker-phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - '8100:80'
+    environment:
+      - PMA_HOST=docker-mysql
+    networks:
+      - docker-network
+
+  docker-php-fpm:
+    build:
+      context: ./php-fpm
+    volumes:
+      - ./web/html/:/var/www/html/
+    networks:
+      - docker-network
+
