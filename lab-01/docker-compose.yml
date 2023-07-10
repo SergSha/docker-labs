@@ -5,7 +5,7 @@ services:
   docker-nginx:
     image: nginx
     ports:
-      - '8090:80'
+      - '8080:80'
     volumes:
       - ./web/html/:/var/www/html/
       - ./nginx/:/etc/nginx/conf.d/
@@ -36,6 +36,8 @@ services:
   docker-php-fpm:
     build:
       context: ./php-fpm
+#    ports:
+#      - '8080:80'
     volumes:
       - ./web/html/:/var/www/html/
     networks:
