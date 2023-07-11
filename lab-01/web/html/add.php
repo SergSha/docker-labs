@@ -4,7 +4,7 @@ if (isset($_POST["tb"]) && isset($_POST["name"]) && isset($_POST["year"]) && iss
      
     $tb = $_POST["tb"];
     try {
-        $conn = new PDO("mysql:host=localhost;dbname=cars", "root", "root1234");
+        $conn = new PDO("mysql:host=docker-mysql;port=3306;dbname=cars", "user", "user1234");
         $sql = "INSERT INTO $tb (name, year, price) VALUES (:name, :year, :price)";
         // определяем prepared statement
         $stmt = $conn->prepare($sql);

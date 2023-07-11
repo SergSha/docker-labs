@@ -11,7 +11,7 @@
 <?php
 // List of new and used cars
 try {
-    $conn = new PDO("mysql:host=192.168.157.16;dbname=cars", "root", "root1234");
+    $conn = new PDO("mysql:host=docker-mysql;port=3306;dbname=cars", "user", "user1234");
     $tbs = "SHOW TABLES";
     $tbarray = $conn->query($tbs);
     while($tb = $tbarray->fetch()){
