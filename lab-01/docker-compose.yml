@@ -13,16 +13,25 @@ services:
       - docker-network
 
   docker-mysql:
-    image: mysql
+    build:
+      context: ./mysql/
+      dockerfile: Dockerfile
     volumes:
       - ./sql/:/var/lib/mysql/
-    environment:
-      - MYSQL_ROOT_PASSWORD=root1234
-      - MYSQL_DATABASE=database
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=user1234
     networks:
       - docker-network
+
+#  docker-mysql:
+#    image: mysql
+#    volumes:
+#      - ./sql/:/var/lib/mysql/
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root1234
+#      - MYSQL_DATABASE=database
+#      - MYSQL_USER=user
+#      - MYSQL_PASSWORD=user1234
+#    networks:
+#      - docker-network
 
   docker-phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -36,6 +45,7 @@ services:
   docker-php-fpm:
     build:
       context: ./php-fpm
+      dockerfile: Dockerfile
     volumes:
       - ./web/html/:/var/www/html/
     networks:
